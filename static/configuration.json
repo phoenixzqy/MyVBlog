@@ -1,15 +1,1 @@
-{
-    "githubUsername": "GitHub-Laziji",
-    "blogTitle": "Laziji",
-    "blogDescribe": "欢迎来到辣子鸡的个人博客。",
-    "htmlTitle": "辣子鸡的博客",
-    "fontColor": "#ffffff",
-    "useBackgroundImage": false,
-    "backgroundColorLeft": "#2690F9",
-    "backgroundColorRight": "#FC2D2D",
-    "audioUrl": "http://sc1.111ttt.cn:8282/2018/1/03m/13/396131232171.m4a?tflag=1519095601&pin=6cd414115fdb9a950d827487b16b5f97#.mp3",
-    "mini": false,
-    "webSites":[
-        {"name":"v2ex" , "url":"https://www.v2ex.com/member/laziji"}
-    ]
-}
+{"githubUsername":"phoenixzqy","blogTitle":"Felix Zhao","blogDescribe":"你有故事，我有酒。","htmlTitle":"Felix Zhao's playland","fontColor":"#ffffff","useBackgroundImage":false,"backgroundColorLeft":"#2F90B9","backgroundColorRight":"#E77C8E","audioUrl":"","soundsgoodIframeUrl":"https://play.soundsgood.co/embed/5b1068987c26a8fb47bb454d?","mini":false,"webSites":[{"name":"Algorithm Simulator","url":"https://phoenixzqy.github.io/demo/algorithmSimulator/index.html"},{"name":"Calendar Tool","url":"https://phoenixzqy.github.io/demo/calendar/index.html"},{"name":"Matching Game","url":"https://phoenixzqy.github.io/demo/Matching-Game-H5/src/index.html"},{"name":"Vuelix Notes App","url":"https://phoenixzqy.github.io/VuePageNote/public/index.html"},{"name":"PWAnything","url":"https://phoenixzqy.github.io/pwanything/app.html"}]}

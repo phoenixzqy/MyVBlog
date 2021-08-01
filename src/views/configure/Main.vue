@@ -14,6 +14,9 @@
                         <el-form-item label="博客描述" prop="blogDescribe">
                             <el-input v-model="configure.blogDescribe" :placeholder="'欢迎来到'+configure.githubUsername+'的个人博客。'"></el-input>
                         </el-form-item>
+                        <el-form-item label="每页博客数量" prop="pageSize">
+                            <el-input v-model="configure.pageSize" placeholder="page size"></el-input>
+                        </el-form-item>
                         <el-form-item label="页面标题" prop="htmlTitle">
                             <el-input v-model="configure.htmlTitle" :placeholder="configure.githubUsername+'的博客'"></el-input>
                         </el-form-item>
@@ -195,12 +198,7 @@
                 this.configure = JSON.parse(JSON.stringify(this.initConfigure))
             },
             addWebSites() {
-                if (this.configure.webSites.length >= 5) {
-                    this.$message("站点太多显示效果不好")
-                    return
-                }
                 this.configure.webSites.push({})
-
             },
             removeWebSites(index) {
                 this.configure.webSites.splice(index,1)

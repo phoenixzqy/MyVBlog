@@ -52,12 +52,13 @@
 <script>
     import { mapGetters } from 'vuex'
     import GistApi from '@/api/gist'
+    import store from '../../store/index'
     export default {
         data() {
             return {
                 query: {
                     page: 1,
-                    pageSize: 5,
+                    pageSize: store.state.configuration.pageSize || 15,
                     pageNumber: 1
                 },
                 loading: false,

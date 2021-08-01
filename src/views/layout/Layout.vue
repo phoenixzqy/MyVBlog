@@ -14,7 +14,6 @@
             <h1 class="project-name">{{blogTitle}}</h1>
             <h2 class="project-tagline">{{blogDescribe}}</h2>
             <a :href="'https://github.com/'+githubUsername" class="btn" target="_blank">GitHub主页</a>
-            <a href="https://github.com/GitHub-Laziji/vblog" class="btn" target="_blank" v-if="!mini">博客源码</a>
         </section>
         <div style="position:relative;  z-index:2;margin: auto;margin-top:-30px;width:64rem;">
             <el-card shadow="never" :body-style="{ padding: '0px' }">
@@ -24,7 +23,7 @@
                             <el-submenu index="#more">
                                 <template slot="title">了解博主</template>
                                 <el-menu-item index="#githubHome">github主页</el-menu-item>
-                                <el-menu-item index="#blog">其他博客</el-menu-item>
+                                <el-menu-item index="#linkedin">LinkedIn</el-menu-item>
                             </el-submenu>
                             <el-submenu index="#webSites" v-if="webSites.length>0">
                                 <template slot="title">其他网站</template>
@@ -185,15 +184,8 @@
                     case "#githubHome":
                         window.open('https://github.com/' + this.githubUsername)
                         break
-                    case "#blog":
-                        if (this.blog) {
-                            window.open((this.blog.match(/https?:\/\//i)?'':'https://') + this.blog)
-                        } else {
-                            this.$message({
-                                message: '博主没有其他博客',
-                                type: 'info'
-                            })
-                        }
+                    case "#linkedin":
+                        window.open('https://www.linkedin.com/in/qiyu-zhao-b02352b6/')
                         break
                     default:
                         if(/#webSites-\d+/.test(index)){

@@ -6,6 +6,9 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
     export default {
         name: 'App',
         computed: {
@@ -19,11 +22,9 @@
             this.$store.dispatch("GetInfo")
             this.$setTitle(this.$route.meta.title)
             let windowSize = this.$util.getWindowSize()
-            let pathArr = this.$route.path.split("/")
-            if (pathArr[1] == "user" && windowSize.height > windowSize.width * 1.2) {
+            if (isMobile()) {
                 this.$router.push("/mobile/user/blog")
-            }
-            if (pathArr[1] == "mobile" && windowSize.height <= windowSize.width * 1.2) {
+            } else {
                 this.$router.push("/")
             }
         }

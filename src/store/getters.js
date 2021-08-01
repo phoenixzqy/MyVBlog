@@ -18,7 +18,7 @@ const getters = {
     blog: state => state.user.blog,
     followersTotal: state => state.user.followers,
     followingTotal: state => state.user.following,
-
+    pageSize: state => state.configuration.pageSize,
 
 }
 export default getters

@@ -4,8 +4,16 @@
             @click-right="$mobileShare()" />
         <div style="height: 60px;"></div>
         <router-link :to="`/mobile/user/blog/details/${item.id}`" v-for="(item,index) in blogs" :key="'p'+index">
-            <van-panel style="margin-bottom: 10px" :title="item.title" :desc="'更新时间 '+item.updateTime">
-                <div style="padding: 7px 15px 7px 15px;color: #303133;font-size: 0.9rem">{{$util.cutStr(item.description,50)}}</div>
+            <van-panel style="
+                  background: #fff;
+                  width: 90%;
+                  margin: 0 auto 10px;
+                  border: 1px solid #eee;
+                  border-bottom: none;"
+                :title="item.title" 
+                :desc="'更新时间 '+item.updateTime"
+              >
+                <div style="padding: 7px 15px 7px 15px;color: #303133;font-size: 0.9rem; color: #888;">{{$util.cutStr(item.description,50)}}</div>
             </van-panel>
         </router-link>
         <div style="height: 100px;"></div>
@@ -15,13 +23,14 @@
 
 <script>
     import GistApi from '@/api/gist'
+    import store from '../../store/index'
     export default {
         data() {
             return {
                 windowSize: this.$util.getWindowSize(),
                 query: {
                     page: 1,
-                    pageSize: 20,
+                    pageSize: 50,
                     pageNumber: 1
                 },
                 searchKey: "",

@@ -3,14 +3,13 @@
 		<el-row>
 			<el-col :span="10">
 				<div>
-					© 2018 GitHub-Laziji&emsp;&emsp;
-					<a href="https://github.com/GitHub-Laziji" target="_blank">Profile</a>&emsp;&emsp;
-					<a href="https://github.com/GitHub-Laziji/vblog" target="_blank">VBlog</a>
+					<a href="https://www.linkedin.com/in/qiyu-zhao-b02352b6/" target="_blank">LinkedIn</a>&emsp;&emsp;
+					<a href="https://github.com/GitHub-Laziji/vblog" target="_blank">VBlog Framework</a>
 				</div>
 			</el-col>
 			<el-col :span="4">
-				<div style="text-align: center;font-size: 18px">
-					<i class="el-icon-location-outline"></i>
+				<div style="text-align: center;font-size: 12px">
+					© 2018 Felix Zhao original created by GitHub-Laziji
 				</div>
 			</el-col>
 			<el-col :span="10">
