@@ -1,3 +1,11 @@
+# MyVBlog
+
+* This is a forked blog project based on gist.
+* fixed some minor bugs
+* update github authentication
+* improve some views
+* adjust mobile version
+
 # VBlog
 
 ![](https://img.shields.io/github/languages/top/github-laziji/VBlog.svg?style=flat)
