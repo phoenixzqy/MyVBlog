@@ -1,5 +1,6 @@
 # MyVBlog
 
+* my [blog](https://phoenixzqy.github.io/)
 * This is a forked blog project based on gist.
 * fixed some minor bugs
 * update github authentication
