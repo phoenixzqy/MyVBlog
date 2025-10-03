@@ -6,19 +6,29 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import 'mavon-editor/dist/markdown/github-markdown.min.css'
 import store from './store'
+import MarkdownIt from 'markdown-it'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import Vant from 'vant'
-import 'vant/lib/vant-css/index.css'
+import 'vant/lib/index.css'
 
 Vue.use(Vant)
 Vue.use(ElementUI)
 Vue.use(mavonEditor)
 
+// Create a markdown-it instance
+const md = new MarkdownIt()
+
 Vue.prototype.$markdown = function (value) {
-    return mavonEditor.markdownIt.render(value)
+    try {
+        if (!value) return ''
+        return md.render(value)
+    } catch (error) {
+        console.error('Error rendering markdown:', error)
+        return value || ''
+    }
 }
 
 Vue.prototype.$reload = function (context) {
