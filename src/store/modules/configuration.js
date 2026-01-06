@@ -48,28 +48,20 @@ const configuration = {
         xmlhttp = new ActiveXObject('Microsoft.XMLHTTP')
       }
 
-      // Dynamically determine the base path for configuration.json
-      const getBasePath = () => {
-        const currentPath = window.location.pathname
-        if (currentPath.includes('/myblog/')) {
-          // Production deployment under myblog subdirectory
-          return './myblog/static/configuration.json'
-        } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          // Local development
-          return '../../../static/configuration.json'
-        } else {
-          // GitHub Pages root deployment or other environments
-          return './static/configuration.json'
-        }
-      }
+      // Determine the base path for configuration.json based on current location
+      // In production: files are served from /myblog/ subdirectory (no /static/ subfolder)
+      // In development: files are in /static/ relative to webpack-dev-server
+      const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
 
-      const configPaths = [
-        getBasePath(),
-        './myblog/static/configuration.json',    // GitHub Pages deployment with myblog prefix
-        '../../../static/configuration.json',    // Local development
-        './static/configuration.json',           // GitHub Pages root deployment
-        '/static/configuration.json'             // Alternative fallback
-      ]
+      const configPaths = isLocalDev
+        ? [
+            '../../../static/configuration.json',  // Local webpack-dev-server path
+            './static/configuration.json'
+          ]
+        : [
+            '/myblog/configuration.json',          // GitHub Pages deployment (absolute path)
+            './myblog/configuration.json'          // Relative fallback
+          ]
 
       let configuration = null
       for (const path of configPaths) {
