@@ -7,7 +7,7 @@
         </el-card>
 
         <div v-if="projects&&projects.length>0">
-            <el-card shadow="hover" v-for="(item,index) in projects" :key="'pro'+index" style="margin-bottom: 20px" v-if="!item.hide">
+            <el-card shadow="hover" v-for="(item,index) in filteredProjects" :key="'pro'+index" style="margin-bottom: 20px">
                 <template v-slot:header>
 <div >
                     <el-row>
@@ -89,7 +89,15 @@ export default {
   computed: {
     ...mapGetters([
       'token'
-    ])
+    ]),
+    filteredProjects () {
+      if (!this.searchKey) {
+        return this.projects.filter(item => item)
+      }
+      return this.projects.filter(item => {
+        return item && item.name && item.name.indexOf(this.searchKey) >= 0
+      })
+    }
   },
   mounted () {
     this.list()
@@ -117,15 +125,12 @@ export default {
           data.license = item.license ? item.license.spdx_id : null
           data.createTime = this.$util.utcToLocal(item.created_at)
           data.updateTime = this.$util.utcToLocal(item.updated_at)
-          data.hide = false
           this.projects.push(data)
         }
       }).then(() => this.loading = false)
     },
     search () {
-      for (let i = 0; i < this.projects.length; i++) {
-        this.projects[i].hide = this.projects[i].name.indexOf(this.searchKey) < 0
-      }
+      // Filtered projects will update automatically via computed property
     },
     goDetails (name) {
       this.$router.push('/user/project/details/' + name)

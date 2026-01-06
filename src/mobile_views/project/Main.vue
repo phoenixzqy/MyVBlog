@@ -96,7 +96,6 @@ export default {
           data.license = item.license ? item.license.spdx_id : null
           data.createTime = this.$util.utcToLocal(item.created_at)
           data.updateTime = this.$util.utcToLocal(item.updated_at)
-          data.hide = false
           this.projects.push(data)
         }
         this.loading = false
@@ -111,9 +110,7 @@ export default {
       })
     },
     search () {
-      for (let i = 0; i < this.projects.length; i++) {
-        this.projects[i].hide = this.projects[i].name.indexOf(this.searchKey) < 0
-      }
+      // Mobile search functionality can be implemented with filtered computed properties if needed
     },
     goDetails (name) {
       this.$router.push('/user/project/details/' + name)

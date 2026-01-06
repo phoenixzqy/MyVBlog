@@ -86,7 +86,6 @@ export default {
             data.id = result[i].id
             data.createTime = this.$util.utcToLocal(result[i].created_at)
             data.updateTime = this.$util.utcToLocal(result[i].updated_at)
-            data.hide = false
             this.blogs.push(data)
           }
         }
@@ -106,9 +105,7 @@ export default {
       })
     },
     search () {
-      for (let i = 0; i < this.blogs.length; i++) {
-        this.blogs[i].hide = this.blogs[i].title.indexOf(this.searchKey) < 0
-      }
+      // Mobile search functionality can be implemented with filtered computed properties if needed
     }
   }
 }

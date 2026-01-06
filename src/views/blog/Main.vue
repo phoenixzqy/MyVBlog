@@ -8,7 +8,7 @@
         </el-card>
 
         <div v-if="blogs&&blogs.length>0">
-            <el-card shadow="hover" v-for="(item,index) in blogs" :key="'p'+index" style="margin-bottom: 20px" v-if="!item.hide">
+            <el-card shadow="hover" v-for="(item,index) in filteredBlogs" :key="'p'+index" style="margin-bottom: 20px">
                 <template v-slot:header>
 <div >
                     <el-row>
@@ -71,7 +71,15 @@ export default {
   computed: {
     ...mapGetters([
       'token'
-    ])
+    ]),
+    filteredBlogs () {
+      if (!this.searchKey) {
+        return this.blogs.filter(item => item)
+      }
+      return this.blogs.filter(item => {
+        return item && item.title && item.title.indexOf(this.searchKey) >= 0
+      })
+    }
   },
   mounted () {
     this.list()
@@ -95,7 +103,6 @@ export default {
             data.id = result[i].id
             data.createTime = this.$util.utcToLocal(result[i].created_at)
             data.updateTime = this.$util.utcToLocal(result[i].updated_at)
-            data.hide = false
             this.blogs.push(data)
             break
           }
@@ -103,9 +110,7 @@ export default {
       }).then(() => this.loading = false)
     },
     search () {
-      for (let i = 0; i < this.blogs.length; i++) {
-        this.blogs[i].hide = this.blogs[i].title.indexOf(this.searchKey) < 0
-      }
+      // Filtered blogs will update automatically via computed property
     },
     editBlog (index) {
       if (!this.token) {
