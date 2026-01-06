@@ -5,6 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const webpack = require('webpack')
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -26,7 +27,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
+            'vue$': 'vue/dist/vue.esm-bundler.js',
             '@': resolve('src'),
         }
     },
@@ -83,6 +84,11 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: JSON.stringify(true),
+            __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false)
+        }),
         ...(config.dev.useEslint ? [new ESLintPlugin({
             extensions: ['js', 'vue'],
             include: [resolve('src'), resolve('test')],

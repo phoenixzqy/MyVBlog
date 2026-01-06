@@ -1,0 +1,65 @@
+{
+  "app": {
+    "title": "My Blog"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "projects": "Projects",
+    "about": "About",
+    "learnAbout": "Learn About",
+    "githubHome": "GitHub Profile",
+    "githubHomePage": "GitHub Profile",
+    "linkedin": "LinkedIn",
+    "otherWebsites": "Other Websites"
+  },
+  "menu": {
+    "latest": "Latest",
+    "social": "Social",
+    "blogList": "Blog List",
+    "openSource": "Open Source",
+    "help": "Help",
+    "readme": "README.md",
+    "settings": "Settings",
+    "publishBlog": "Publish Blog",
+    "editBlog": "Edit Blog",
+    "blogDetails": "Blog Details",
+    "projectList": "Project List",
+    "projectDetails": "Project Details",
+    "userProfile": "User Profile"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "english": "English",
+    "chinese": "简体中文"
+  },
+  "common": {
+    "fullscreen": "Fullscreen",
+    "exit": "Exit",
+    "location": "Location",
+    "notFilled": "Not filled",
+    "followers": "Followers",
+    "following": "Following",
+    "sourceCode": "Source Code",
+    "otherBlogs": "Other Blogs",
+    "profile": "Profile",
+    "share": "Share",
+    "loading": "Loading...",
+    "noMore": "No more data",
+    "updateTime": "Updated",
+    "back": "Back",
+    "published": "Published",
+    "updated": "Updated",
+    "loadError": "Failed to load",
+    "noUpdates": "No updates ╮(๑•́ ₃•̀๑)╭",
+    "publishBlog": "Publish Blog"
+  },
+  "sidebar": {
+    "tokenNotBound": "Token not bound",
+    "tokenBound": "Token bound",
+    "bind": "Bind",
+    "logout": "Logout",
+    "tokenAcquisition": "Token Acquisition",
+    "tokenHelp": "Go to github -> settings -> developerSettings -> personalAccessTokens, check gist permission to get Token. Refer to README.md for details"
+  }
+}

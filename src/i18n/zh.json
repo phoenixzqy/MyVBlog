@@ -1,0 +1,65 @@
+{
+  "app": {
+    "title": "我的博客"
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "projects": "项目",
+    "about": "关于",
+    "learnAbout": "了解博主",
+    "githubHome": "GitHub主页",
+    "githubHomePage": "GitHub主页",
+    "linkedin": "LinkedIn",
+    "otherWebsites": "其他网站"
+  },
+  "menu": {
+    "latest": "最新动态",
+    "social": "社交圈",
+    "blogList": "博客列表",
+    "openSource": "开源项目",
+    "help": "使用帮助",
+    "readme": "README.md",
+    "settings": "系统配置",
+    "publishBlog": "发表博客",
+    "editBlog": "编辑博客",
+    "blogDetails": "博客详情",
+    "projectList": "项目列表",
+    "projectDetails": "项目详情",
+    "userProfile": "用户资料"
+  },
+  "language": {
+    "switch": "切换语言",
+    "english": "English",
+    "chinese": "简体中文"
+  },
+  "common": {
+    "fullscreen": "全屏",
+    "exit": "退出",
+    "location": "位置",
+    "notFilled": "未填写地址",
+    "followers": "粉丝",
+    "following": "关注",
+    "sourceCode": "项目源码",
+    "otherBlogs": "其他博客",
+    "profile": "个人中心",
+    "share": "分享",
+    "loading": "加载中...",
+    "noMore": "没有更多了",
+    "updateTime": "更新时间",
+    "back": "返回",
+    "published": "发布",
+    "updated": "更新",
+    "loadError": "加载失败",
+    "noUpdates": "没有更新 ╮(๑•́ ₃•̀๑)╭",
+    "publishBlog": "发布博文"
+  },
+  "sidebar": {
+    "tokenNotBound": "Token未绑定",
+    "tokenBound": "Token已绑定",
+    "bind": "绑定",
+    "logout": "注销",
+    "tokenAcquisition": "Token获取",
+    "tokenHelp": "在 github-> settings-> developerSettings-> personalAccessTokens 勾选gist权限,获取Token. 详情参考README.md"
+  }
+}

@@ -1,25 +1,25 @@
 <template>
     <div>
         <el-card shadow="never" style="min-height: 400px;margin-bottom: 20px;padding: 20px 0px 20px 0px;text-align: center">
-            <font style="font-size: 30px;color:#dddddd ">
+            <span style="font-size: 30px;color:#dddddd ">
                 <b>◔ ‸◔？</b>
-            </font>
+            </span>
         </el-card>
     </div>
 </template>
 <script>
 
-    export default {
-        data() {
-            return {
+export default {
+  data () {
+    return {
 
-            }
-        },
-        mounted() {
-
-        },
-        methods: {
-
-        }
     }
+  },
+  mounted () {
+
+  },
+  methods: {
+
+  }
+}
 </script>

@@ -2,25 +2,29 @@
     <div>
         <el-card shadow="never">
             <el-menu :default-active="active" @select="onSelect">
-                <el-menu-item v-for="item in constantRouterMap" v-if="item.meta&&item.meta.type=='user'&&(token||!item.meta.LoginRequired)&&(!mini||!item.meta.mini)"
-                    :key="item.path" :index="item.path">
-                    <i :class="item.meta.icon"></i>
-                    <span slot="title">{{item.meta.title}}</span>
-                </el-menu-item>
+                <template v-for="item in constantRouterMap" :key="item.path">
+                    <el-menu-item v-if="item.meta&&item.meta.type=='user'&&(token||!item.meta.LoginRequired)&&(!mini||!item.meta.mini)"
+                        :index="item.path">
+                        <i :class="item.meta.icon"></i>
+                        <template #title>
+                            <span>{{ getTranslatedTitle(item.meta.title) }}</span>
+                        </template>
+                    </el-menu-item>
+                </template>
             </el-menu>
         </el-card>
 
         <el-card shadow="never" style="margin-top: 20px;text-align: center">
             <div v-if="!token" style="font-size: 0.9rem;line-height: 1.5;color: #606c71;">
-                <el-tag type="danger" size="small">&nbsp;</el-tag>&nbsp;&nbsp; Token未绑定&nbsp;&nbsp;
-                <el-button type="text" @click="openTokenDialog">绑定</el-button>
+                <el-tag type="danger" size="small">&nbsp;</el-tag>&nbsp;&nbsp; {{ $t('sidebar.tokenNotBound') }}&nbsp;&nbsp;
+                <el-button type="text" @click="openTokenDialog">{{ $t('sidebar.bind') }}</el-button>
             </div>
             <div v-if="token" style="font-size: 0.9rem;line-height: 1.5;color: #303133;">
-                <el-tag type="success" size="small">&nbsp;</el-tag>&nbsp;&nbsp; Token已绑定&nbsp;&nbsp;
-                <el-button type="text" @click="cancellation">注销</el-button>
+                <el-tag type="success" size="small">&nbsp;</el-tag>&nbsp;&nbsp; {{ $t('sidebar.tokenBound') }}&nbsp;&nbsp;
+                <el-button type="text" @click="cancellation">{{ $t('sidebar.logout') }}</el-button>
             </div>
             <div style="margin-top: 10px;text-align: left">
-                <el-alert title="Token获取" type="info" description="在 github-> settings-> developerSettings-> personalAccessTokens 勾选gist权限,获取Token. 详情参考README.md"
+                <el-alert :title="$t('sidebar.tokenAcquisition')" type="info" :description="$t('sidebar.tokenHelp')"
                     :closable="false">
                 </el-alert>
             </div>
@@ -30,44 +34,65 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import { constantRouterMap } from '@/router'
-    import TokenDialog from '@/views/common/TokenDialog'
-    export default {
-        components: {
-            TokenDialog
-        },
-        data() {
-            return {
-                constantRouterMap,
-                active: "",
-                parentUrl: "",
-                menuList: []
-            }
-        },
-        computed: {
-            ...mapGetters([
-                'token',
-                'githubUsername',
-                'mini'
-            ])
-        },
-        mounted() {
-            let arr = this.$route.path.split("/")
-            this.active = "/" + arr[1] + "/" + arr[2]
-        },
-        methods: {
-            onSelect(index) {
-                this.$router.push(index)
-            },
-            openTokenDialog() {
-                this.$refs.tokenDialog.open(() => {
-           
-                })
-            },
-            cancellation() {
-                this.$store.dispatch("Cancellation")
-            }
-        }
+import { mapGetters } from 'vuex'
+import { constantRouterMap } from '@/router'
+import TokenDialog from '@/views/common/TokenDialog'
+export default {
+  components: {
+    TokenDialog
+  },
+  data () {
+    return {
+      constantRouterMap,
+      active: '',
+      parentUrl: '',
+      menuList: []
     }
+  },
+  computed: {
+    ...mapGetters([
+      'token',
+      'githubUsername',
+      'mini'
+    ])
+  },
+  mounted () {
+    const arr = this.$route.path.split('/')
+    this.active = '/' + arr[1] + '/' + arr[2]
+  },
+  methods: {
+    getTranslatedTitle (title) {
+      // Map Chinese titles to i18n keys
+      const titleMap = new Map([
+        ['最新动态', 'menu.latest'],
+        ['社交圈', 'menu.social'],
+        ['博客列表', 'menu.blogList'],
+        ['开源项目', 'menu.openSource'],
+        ['使用帮助', 'menu.help'],
+        ['README.md', 'menu.readme'],
+        ['系统配置', 'menu.settings'],
+        ['发表博客', 'menu.publishBlog'],
+        ['编辑博客', 'menu.editBlog'],
+        ['博客详情', 'menu.blogDetails'],
+        ['项目列表', 'menu.projectList'],
+        ['项目详情', 'menu.projectDetails'],
+        ['用户资料', 'menu.userProfile']
+      ])
+
+      const i18nKey = titleMap.get(title)
+      return i18nKey ? this.$t(i18nKey) : title
+    },
+    onSelect (index) {
+      this.$router.push(index)
+    },
+    openTokenDialog () {
+      this.$refs.tokenDialog.open(() => {
+
+      })
+    },
+    cancellation () {
+      this.$store.dispatch('Cancellation')
+    }
+  }
+}
 </script>

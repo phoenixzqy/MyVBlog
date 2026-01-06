@@ -19,15 +19,15 @@
                                 </el-col>
                             </el-row>
                             <div style="text-align: center;margin-top: 10px">
-                                <el-pagination @current-change="onSelect" background layout="prev, pager, next" :current-page.sync="followers.query.page"
+                                <el-pagination @current-change="onSelect" background layout="prev, pager, next" v-model:current-page="followers.query.page"
                                     :page-size="followers.query.pageSize" :total="followers.query.pageNumber*followers.query.pageSize">
                                 </el-pagination>
                             </div>
                         </div>
                         <div style="min-height: 300px;margin-bottom: 20px;padding: 20px 0px 20px 0px;text-align: center" v-else>
-                            <font style="font-size: 30px;color:#dddddd ">
+                            <span style="font-size: 30px;color:#dddddd ">
                                 <b>(￢_￢) 没有一个粉丝</b>
-                            </font>
+                            </span>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -48,15 +48,15 @@
                                 </el-col>
                             </el-row>
                             <div style="text-align: center;margin-top: 10px">
-                                <el-pagination @current-change="onSelect" background layout="prev, pager, next" :current-page.sync="following.query.page"
+                                <el-pagination @current-change="onSelect" background layout="prev, pager, next" v-model:current-page="following.query.page"
                                     :page-size="following.query.pageSize" :total="following.query.pageNumber*following.query.pageSize">
                                 </el-pagination>
                             </div>
                         </div>
                         <div style="min-height: 300px;margin-bottom: 20px;padding: 20px 0px 20px 0px;text-align: center" v-else>
-                            <font style="font-size: 30px;color:#dddddd ">
+                            <span style="font-size: 30px;color:#dddddd ">
                                 <b>(￢_￢) 还没有关注一个人</b>
-                            </font>
+                            </span>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -65,94 +65,92 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex'
-    import UserApi from '@/api/user'
-    export default {
-        data() {
-            return {
-                activeTab: "followers",
-                followers: {
-                    query: {
-                        page: 1,
-                        pageSize: 9,
-                        pageNumber: 1
-                    },
-                    loading: false,
-                    list: []
-                },
-                following: {
-                    query: {
-                        page: 1,
-                        pageSize: 9,
-                        pageNumber: 1
-                    },
-                    loading: false,
-                    list: []
-                }
-            }
+import { mapGetters } from 'vuex'
+import UserApi from '@/api/user'
+export default {
+  data () {
+    return {
+      activeTab: 'followers',
+      followers: {
+        query: {
+          page: 1,
+          pageSize: 9,
+          pageNumber: 1
         },
-        computed: {
-            ...mapGetters([
-                'githubUsername',
-                'followersTotal',
-                'followingTotal'
-            ])
+        loading: false,
+        list: []
+      },
+      following: {
+        query: {
+          page: 1,
+          pageSize: 9,
+          pageNumber: 1
         },
-        mounted() {
-            this.onSelect()
-
-        },
-        methods: {
-            onSelect() {
-                switch (this.activeTab) {
-                    case "followers":
-                        this.listFollowers()
-                        break
-                    case "following":
-                        this.listFollowing()
-                        break
-                    default:
-                        break
-                }
-            },
-            listFollowers() {
-                this.followers.loading = true
-                UserApi.followers(this.followers.query).then((response) => {
-                    let result = response.data
-                    let pageNumber = this.$util.parseHeaders(response.headers)
-                    if (pageNumber) {
-                        this.followers.query.pageNumber = pageNumber
-                    }
-                    this.followers.list = []
-                    for (let i = 0; i < result.length; i++) {
-                        let data = {}
-                        data.name = result[i]['login']
-                        data.avatarUrl = result[i]['avatar_url']
-                        data.htmlUrl = result[i]['html_url']
-                        this.followers.list.push(data)
-                    }
-                }).then(() => this.followers.loading = false)
-            },
-            listFollowing() {
-                this.following.loading = true
-                UserApi.following(this.following.query).then((response) => {
-                    let result = response.data
-                    let pageNumber = this.$util.parseHeaders(response.headers)
-                    if (pageNumber) {
-                        this.following.query.pageNumber = pageNumber
-                    }
-                    this.following.list = []
-                    for (let i = 0; i < result.length; i++) {
-                        let data = {}
-                        data.name = result[i]['login']
-                        data.avatarUrl = result[i]['avatar_url']
-                        data.htmlUrl = result[i]['html_url']
-                        this.following.list.push(data)
-                    }
-                }).then(() => this.following.loading = false)
-            },
-
-
-        }
+        loading: false,
+        list: []
+      }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'githubUsername',
+      'followersTotal',
+      'followingTotal'
+    ])
+  },
+  mounted () {
+    this.onSelect()
+  },
+  methods: {
+    onSelect () {
+      switch (this.activeTab) {
+        case 'followers':
+          this.listFollowers()
+          break
+        case 'following':
+          this.listFollowing()
+          break
+        default:
+          break
+      }
+    },
+    listFollowers () {
+      this.followers.loading = true
+      UserApi.followers(this.followers.query).then((response) => {
+        const result = response.data
+        const pageNumber = this.$util.parseHeaders(response.headers)
+        if (pageNumber) {
+          this.followers.query.pageNumber = pageNumber
+        }
+        this.followers.list = []
+        for (let i = 0; i < result.length; i++) {
+          const data = {}
+          data.name = result[i].login
+          data.avatarUrl = result[i].avatar_url
+          data.htmlUrl = result[i].html_url
+          this.followers.list.push(data)
+        }
+      }).then(() => this.followers.loading = false)
+    },
+    listFollowing () {
+      this.following.loading = true
+      UserApi.following(this.following.query).then((response) => {
+        const result = response.data
+        const pageNumber = this.$util.parseHeaders(response.headers)
+        if (pageNumber) {
+          this.following.query.pageNumber = pageNumber
+        }
+        this.following.list = []
+        for (let i = 0; i < result.length; i++) {
+          const data = {}
+          data.name = result[i].login
+          data.avatarUrl = result[i].avatar_url
+          data.htmlUrl = result[i].html_url
+          this.following.list.push(data)
+        }
+      }).then(() => this.following.loading = false)
+    }
+
+  }
+}
 </script>

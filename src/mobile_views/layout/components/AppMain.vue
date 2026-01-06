@@ -1,15 +1,17 @@
 <template>
     <section>
-        <transition name="fade">
-            <router-view></router-view>
-        </transition>
+        <router-view v-slot="{ Component }">
+            <transition name="fade">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </section>
 </template>
 
 <script>
-    export default {
-        name: 'AppMain'
-    }
+export default {
+  name: 'AppMain'
+}
 </script>
 
 <style>

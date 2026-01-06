@@ -26,7 +26,7 @@ This plan outlines the technical approach for modernizing the MyVBlog applicatio
 - [x] **CP3** Locale coverage for `zh-CN` & `en-US`, including auto-detect + manual switch persistence (Principle: Bilingual UX)
 - [x] **CP4** Scope audit confirms no music/audio modules and that new work aligns with core blogging flows (Principle: Lean Surface & Focused Modules)
 - [x] **CP5** Test plan covers lint, Jest, targeted Nightwatch, and GitHub Pages smoke validation (Principle: Verifiable Delivery Pipeline)
-- [ ] **CP6** Browser-based verification scripts are planned for critical UI flows (Principle: Browser-Based Verification)
+- [x] **CP6** Browser-based verification scripts are planned for critical UI flows (Principle: Browser-Based Verification)
 
 ## Project Structure
 

@@ -1,20 +1,27 @@
 <template>
     <div>
-        <app-main></app-main>
+        <div class="mobile-header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <language-switcher></language-switcher>
+        </div>
+        <div style="margin-top: 50px;">
+            <app-main></app-main>
+        </div>
         <bottombar style="position:fixed;bottom:0;"></bottombar>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import Bottombar from './components/Bottombar'
-    import AppMain from './components/AppMain'
-    export default {
-        components: {
-            Bottombar,
-            AppMain
-        },
-    }
+import Bottombar from './components/Bottombar'
+import AppMain from './components/AppMain'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+export default {
+  name: 'MobileLayout',
+  components: {
+    Bottombar,
+    AppMain,
+    LanguageSwitcher
+  }
+}
 </script>
 
 <style>

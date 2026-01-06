@@ -27,7 +27,7 @@
                     <el-steps :active="use.active" align-center style="margin-top: 20px;" :process-status="use.status">
                         <el-step title="获取Token" description="在GitHub上获取调用API所需的Token"></el-step>
                         <el-step title="登录" description="将获取的Token绑定上"></el-step>
-                        <el-step title="发个博客" description="点击博客列表右上角的发布博文按钮"></el-step>
+                        <el-step title="发个博客" :description="'点击博客列表右上角的' + $t('common.publishBlog') + '按钮'"></el-step>
                     </el-steps>
                 </el-collapse-item>
                 <el-collapse-item title="开发注意事项" name="develop">
@@ -47,42 +47,42 @@
 </template>
 <script>
 
-    export default {
-        data() {
-            return {
-                active: "deploy",
-                deploy: {
-                    images: [
-                        require('../../assets/deploy0.png'),
-                        require('../../assets/deploy1.png'),
-                        require('../../assets/deploy2.png')
-                    ],
-                    status: "process",
-                    active: 0,
-                },
-                use: {
-                    images: [
-                        require('../../assets/use0.png'),
-                        require('../../assets/use1.png'),
-                        require('../../assets/use2.png')
-                    ],
-                    status: "process",
-                    active: 0,
-                }
-            }
-        },
-        mounted() {
-
-        },
-        methods: {
-            deployChange(index) {
-                this.deploy.status = index == 2 ? "success" : "process"
-                this.deploy.active = index
-            },
-            useChange(index) {
-                this.use.status = index == 2 ? "success" : "process"
-                this.use.active = index
-            }
-        }
+export default {
+  data () {
+    return {
+      active: 'deploy',
+      deploy: {
+        images: [
+          require('../../assets/deploy0.png'),
+          require('../../assets/deploy1.png'),
+          require('../../assets/deploy2.png')
+        ],
+        status: 'process',
+        active: 0
+      },
+      use: {
+        images: [
+          require('../../assets/use0.png'),
+          require('../../assets/use1.png'),
+          require('../../assets/use2.png')
+        ],
+        status: 'process',
+        active: 0
+      }
     }
+  },
+  mounted () {
+
+  },
+  methods: {
+    deployChange (index) {
+      this.deploy.status = index == 2 ? 'success' : 'process'
+      this.deploy.active = index
+    },
+    useChange (index) {
+      this.use.status = index == 2 ? 'success' : 'process'
+      this.use.active = index
+    }
+  }
+}
 </script>

@@ -2,6 +2,7 @@
 
 * my [blog](https://phoenixzqy.github.io/)
 * This is a forked blog project based on gist.
+* **[2025 Update]** Modernized with Vue 3, bilingual support (EN/ZH), and enhanced mobile experience
 * fixed some minor bugs
 * update github authentication
 * improve some views
@@ -14,6 +15,13 @@
 
 
 ## [English Documents](README-EN.md)
+
+## 🌟 Latest Features (2025)
+
+- ✅ **Vue 3 Migration**: Upgraded from Vue 2 to Vue 3 with Composition API support
+- ✅ **Bilingual Support**: Seamless language switching between English and Simplified Chinese
+- ✅ **Modern Mobile UI**: Enhanced mobile experience with Vant 4 components
+- ✅ **Streamlined Application**: Removed legacy music module for better performance
 
 ## 目录
 - [简介](#简介)
@@ -43,11 +51,28 @@
 - [x] 改进传统 GitHub Pages 不能动态发布的缺陷
 - [x] 包含电脑端和移动端
 - [x] 单页面应用
+- [x] **Vue 3 + Composition API** - 现代化的前端架构
+- [x] **双语支持** - 中英文无缝切换
+- [x] **响应式设计** - 优化的移动端体验
 
-## 使用的组件
+## 技术栈
 
-- Element (电脑端)
-- Vant (移动端)
+### 核心框架
+- **Vue 3.4.0** - Progressive JavaScript Framework
+- **Vue Router 4.2.0** - Official router for Vue 3
+- **Vuex 4.1.0** - State management
+- **Vue I18n 9.9.0** - Internationalization
+
+### UI 组件库
+- **Element Plus 2.4.4** - 电脑端 UI 组件
+- **Vant 4.9.0** - 移动端 UI 组件
+
+### 开发工具
+- **Webpack 5.89.0** - Module bundler
+- **Babel 7** - JavaScript compiler
+- **Jest 29.7.0** - Unit testing framework
+- **Nightwatch 3.3.4** - E2E testing framework
+- **Playwright 1.56.0** - Browser automation
 
 ## 项目截图
 
@@ -69,23 +94,91 @@
 
 ## 开发
 
-#### 安装 运行 构建
+#### 环境要求
 
-    npm install
+- Node.js >= 14.0.0
+- npm >= 6.0.0
 
-    npm run dev
+#### 安装依赖
 
-    npm run build
+```bash
+npm install
+```
+
+#### 开发模式
+
+```bash
+npm run dev
+```
+
+应用将运行在 `http://localhost:8080`
+
+#### 生产构建
+
+```bash
+npm run build
+```
+
+#### 运行测试
+
+```bash
+# 代码检查
+npm run lint
+
+# 单元测试
+npm run unit
+
+# E2E 测试
+npm run e2e
+
+# Playwright 测试
+npm run playwright
+```
 
 #### 获取Token
 
 在 ```github > settings > Developer settings > Personal access tokens```  勾选```gist``` 和 ```repo```权限 获取```Token```
 
+#### 语言切换
+
+应用支持中英文切换:
+- 点击界面右上角的语言切换按钮
+- 语言偏好会自动保存到本地存储
+- 刷新页面后会保持选择的语言
+
 #### 开发注意事项
 
 - 配置文件读取的总是与 ```index.html``` 同级的 ```./static/configuration.json```, 所以本地 ```npm run dev``` 的时候会出现修改配置无效的情况, 如果需要修改的话修改本地的配置文件就行, 发布到 github 之后不影响, 因为修改配置的时候是通过 ```github-api``` 修改 ```你的用户名.github.io``` 下的 ```/static/configuration.json ```
+- 所有用户界面文本应该通过 `$t()` 函数进行国际化处理
+- 新增翻译请编辑 `src/i18n/en.json` 和 `src/i18n/zh.json`
+- 移动端组件优先使用 Vant 组件库
+- 桌面端组件优先使用 Element Plus 组件库
 
 ## 更新记录
+
+#### 2025.10.7 重大更新 - Vue 3 现代化
+- **Vue 3 迁移**: 从 Vue 2 升级到 Vue 3.4.0，使用最新的 Composition API
+- **国际化支持**: 集成 vue-i18n，完整支持中英文双语
+  - 所有界面文本已翻译
+  - 语言偏好持久化存储
+  - 一键切换语言
+- **移动端体验优化**:
+  - 升级到 Vant 4.9.0 组件库
+  - 重构所有移动端视图
+  - 优化导航和交互体验
+- **应用精简**:
+  - 移除遗留的音乐播放器模块
+  - 减少应用包体积
+  - 提升加载性能
+- **测试覆盖**:
+  - 添加 Jest 单元测试
+  - 添加 Nightwatch E2E 测试
+  - 添加 Playwright 浏览器自动化测试
+- **依赖更新**:
+  - Vue Router 4.2.0
+  - Vuex 4.1.0
+  - Element Plus 2.4.4
+  - Webpack 5.89.0
 
 #### 2018.5.23 更新
 - 修改移动端页面样式
@@ -126,7 +219,7 @@
 - 电脑端增加社交圈, 查看粉丝和关注的用户
 
 #### 2018.5.11 更新
-- 移动端增加博客, 项目, 个人中心, 移动端和PC端共用API, 页面独立 
+- 移动端增加博客, 项目, 个人中心, 移动端和PC端共用API, 页面独立
 - 修复文章样式奇怪的BUG
 
 #### 2018.5.8 更新
@@ -137,13 +230,13 @@
 - 状态栏增加音乐播放器
 
 #### 2018.5.5 更新
-- 增加了系统配置, 可以动态修改标题, 描述, 背景等配置 
+- 增加了系统配置, 可以动态修改标题, 描述, 背景等配置
 
 #### 2018.5.2 更新
-- 增加博客和项目列表的分页 
-- 增加分享链接 
-- 改进Token绑定验证 
-- 修改代码结构 
+- 增加博客和项目列表的分页
+- 增加分享链接
+- 改进Token绑定验证
+- 修改代码结构
 
 #### 2018.4.30 更新
 - 添加了从github获取个人开源项目的功能,显示信息更加全面,显示开源项目列表
@@ -151,7 +244,7 @@
 
 #### 2018.4.29 更新
 - 增加个人信息的状态栏
-- 修复发图片博文的BUG 
+- 修复发图片博文的BUG
 
 ## License
 

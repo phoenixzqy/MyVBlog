@@ -1,92 +1,115 @@
 <template>
     <div :style="'background: #f8f8f8;min-height: '+windowSize.height+'px'">
-        <van-nav-bar style="position:fixed;top:0;z-index: 9999; box-shadow: 0px -3px 10px #888888;width: 100%;" title="博客列表" right-text="分享"
+        <van-nav-bar
+            style="position:fixed;top:0;z-index: 9999; box-shadow: 0px -3px 10px #888888;width: 100%;"
+            :title="$t('nav.blog')"
+            :right-text="$t('common.share')"
             @click-right="$mobileShare()" />
         <div style="height: 60px;"></div>
-        <router-link :to="`/mobile/user/blog/details/${item.id}`" v-for="(item,index) in blogs" :key="'p'+index">
-            <van-panel style="
-                  background: #fff;
-                  width: 90%;
-                  margin: 0 auto 10px;
-                  border: 1px solid #eee;
-                  border-bottom: none;"
-                :title="item.title" 
-                :desc="'更新时间 '+item.updateTime"
-              >
-                <div style="padding: 7px 15px 7px 15px;color: #303133;font-size: 0.9rem; color: #888;">{{$util.cutStr(item.description,50)}}</div>
-            </van-panel>
-        </router-link>
+
+        <van-list
+            v-model:loading="loading"
+            :finished="finished"
+            :finished-text="$t('common.noMore')"
+            :immediate-check="true"
+            @load="onLoad"
+        >
+            <router-link :to="`/mobile/user/blog/details/${item.id}`" v-for="(item,index) in blogs" :key="'p'+index">
+                <van-cell-group inset style="margin-bottom: 10px;">
+                    <van-cell :title="item.title" :label="$t('common.updateTime') + ' ' + item.updateTime">
+                        <template #default>
+                            <div class="blog-item" style="padding-top: 8px; color: #888; font-size: 0.9rem;">
+                                {{$util.cutStr(item.description,50)}}
+                            </div>
+                        </template>
+                    </van-cell>
+                </van-cell-group>
+            </router-link>
+        </van-list>
+
         <div style="height: 100px;"></div>
 
     </div>
 </template>
 
 <script>
-    import GistApi from '@/api/gist'
-    import store from '../../store/index'
-    export default {
-        data() {
-            return {
-                windowSize: this.$util.getWindowSize(),
-                query: {
-                    page: 1,
-                    pageSize: 50,
-                    pageNumber: 1
-                },
-                searchKey: "",
-                blogs: []
-            }
-        },
-        mounted() {
-
-            this.list()
-        },
-        methods: {
-            test() {
-
-            },
-            list() {
-                this.$toast.loading({
-                    duration: 0,
-                    forbidClick: true,
-                    message: '加载中'
-                })
-                GistApi.list(this.query).then((response) => {
-                    let result = response.data
-                    let pageNumber = this.$util.parseHeaders(response.headers)
-                    if (pageNumber) {
-                        this.query.pageNumber = pageNumber
-                    }
-                    if (result.length == 0) {
-
-                        return
-                    }
-                    for (let i = 0; i < result.length; i++) {
-                        for (let key in result[i].files) {
-                            let data = {}
-                            data['title'] = key
-                            data['url'] = result[i].files[key]
-                            data['description'] = result[i]['description']
-                            data['id'] = result[i]['id']
-                            data['createTime'] = this.$util.utcToLocal(result[i]['created_at'])
-                            data['updateTime'] = this.$util.utcToLocal(result[i]['updated_at'])
-                            data['hide'] = false
-                            this.blogs.push(data)
-                            break
-                        }
-                    }
-                    // this.query.page++
-                }).then(() => this.$toast.clear())
-            },
-            search() {
-                for (let i = 0; i < this.blogs.length; i++) {
-                    this.blogs[i].hide = this.blogs[i].title.indexOf(this.searchKey) < 0
-                }
-            },
-            goDetails(id) {
-                console.log(id)
-                this.$router.push("" + id)
-            }
-        }
+import GistApi from '@/api/gist'
+import { showToast, closeToast } from 'vant'
+export default {
+  name: 'MobileBlogMain',
+  data () {
+    return {
+      windowSize: this.$util.getWindowSize(),
+      query: {
+        page: 1,
+        pageSize: 50,
+        pageNumber: 1
+      },
+      searchKey: '',
+      blogs: [],
+      loading: false,
+      finished: false
     }
+  },
+  mounted () {
+    // Initial load will be handled by van-list
+  },
+  methods: {
+    onLoad () {
+      // Show loading toast using functional API
+      showToast({
+        type: 'loading',
+        duration: 0,
+        forbidClick: true,
+        message: this.$t('common.loading')
+      })
+
+      GistApi.list(this.query).then((response) => {
+        const result = response.data
+        const pageNumber = this.$util.parseHeaders(response.headers)
+        if (pageNumber) {
+          this.query.pageNumber = pageNumber
+        }
+        if (result.length === 0) {
+          this.finished = true
+          this.loading = false
+          return
+        }
+        for (let i = 0; i < result.length; i++) {
+          const files = result[i].files
+          const firstKey = Object.keys(files)[0]
+          if (firstKey) {
+            const data = {}
+            data.title = firstKey
+            data.url = files[firstKey]
+            data.description = result[i].description
+            data.id = result[i].id
+            data.createTime = this.$util.utcToLocal(result[i].created_at)
+            data.updateTime = this.$util.utcToLocal(result[i].updated_at)
+            data.hide = false
+            this.blogs.push(data)
+          }
+        }
+        this.loading = false
+        if (result.length < this.query.pageSize) {
+          this.finished = true
+        }
+        this.query.page++
+      }).catch((error) => {
+        console.error('Error loading blog list:', error)
+        this.loading = false
+        this.finished = true
+        // Error toast is already shown by the axios interceptor
+      }).finally(() => {
+        // Clear loading toast
+        closeToast()
+      })
+    },
+    search () {
+      for (let i = 0; i < this.blogs.length; i++) {
+        this.blogs[i].hide = this.blogs[i].title.indexOf(this.searchKey) < 0
+      }
+    }
+  }
+}
 </script>

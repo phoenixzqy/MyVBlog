@@ -31,3 +31,22 @@ This document outlines the research and decisions made for the blog modernizatio
 **Rationale**: The project is already configured with Webpack. While other build tools like Vite exist, migrating the build process is a significant task that is out of scope for this modernization effort. We will update the Webpack configuration to support Vue 3.
 **Alternatives considered**:
 -   **Vite**: Vite offers faster development server startup and build times, but migrating the existing Webpack configuration would be a separate project.
+
+## Gist Contract & Data Handling
+
+**Contract**: The application will continue to use the GitHub Gist REST API as the backend data store.
+**Key Principles**:
+- All blog content is stored in gists with markdown format
+- Each gist revision must be tracked to prevent conflicts
+- API calls must include retry logic with exponential backoff (3 attempts minimum)
+- Rate limit (403) and auth failures must surface actionable error messages to the user
+- Mutations require revision confirmation before PATCH operations
+- The gist structure remains unchanged to maintain backward compatibility
+
+**Locale Impact**:
+- Locale preferences are stored client-side using cookies or localStorage
+- Default locale detection uses `navigator.languages` API
+- Fallback hierarchy: User preference → Browser language → zh-CN (default)
+- Locale switching occurs without page reload using Vue's reactivity
+- Translation files are lazy-loaded to reduce initial bundle size
+- Missing translation keys fall back to the key itself or default language string
