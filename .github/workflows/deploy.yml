@@ -48,6 +48,18 @@ jobs:
       - name: Copy dist to pages repository
         run: cp -r dist/* pages-repo/
 
+      - name: Ensure configuration.json is accessible at expected paths
+        run: |
+          # Copy configuration.json to both root static and myblog/static for compatibility
+          if [ -f "pages-repo/myblog/static/configuration.json" ]; then
+            mkdir -p pages-repo/static
+            cp pages-repo/myblog/static/configuration.json pages-repo/static/configuration.json
+            echo "Copied configuration.json to root static folder"
+          else
+            echo "Warning: configuration.json not found at expected location"
+            find pages-repo -name "configuration.json" || true
+          fi
+
       - name: Commit and push to GitHub Pages
         run: |
           cd pages-repo
