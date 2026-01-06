@@ -5,7 +5,7 @@
                 <template v-for="item in constantRouterMap" :key="item.path">
                     <el-menu-item v-if="item.meta&&item.meta.type=='user'&&(token||!item.meta.LoginRequired)&&(!mini||!item.meta.mini)"
                         :index="item.path">
-                        <i :class="item.meta.icon"></i>
+                        <el-icon><component :is="getIcon(item.meta.icon)" /></el-icon>
                         <template #title>
                             <span>{{ getTranslatedTitle(item.meta.title) }}</span>
                         </template>
@@ -37,9 +37,29 @@
 import { mapGetters } from 'vuex'
 import { constantRouterMap } from '@/router'
 import TokenDialog from '@/views/common/TokenDialog'
+import { Star, Iphone, EditPen, Service, Printer, Document, Setting } from '@element-plus/icons-vue'
+
+// Icon mapping from old class names to new components
+const iconMap = {
+  'el-icon-star-off': Star,
+  'el-icon-mobile-phone': Iphone,
+  'el-icon-edit-outline': EditPen,
+  'el-icon-service': Service,
+  'el-icon-printer': Printer,
+  'el-icon-document': Document,
+  'el-icon-setting': Setting
+}
+
 export default {
   components: {
-    TokenDialog
+    TokenDialog,
+    Star,
+    Iphone,
+    EditPen,
+    Service,
+    Printer,
+    Document,
+    Setting
   },
   data () {
     return {
@@ -61,6 +81,9 @@ export default {
     this.active = '/' + arr[1] + '/' + arr[2]
   },
   methods: {
+    getIcon (iconClass) {
+      return iconMap[iconClass] || Star
+    },
     getTranslatedTitle (title) {
       // Map Chinese titles to i18n keys
       const titleMap = new Map([

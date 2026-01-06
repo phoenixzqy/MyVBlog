@@ -9,9 +9,9 @@
                     </el-col>
                     <el-col :span="12">
                         <div style="text-align: right;">
-                            <el-button @click="$share()" style="padding: 3px 0" type="text" icon="el-icon-share">分享</el-button>
-                            <el-button @click="goGithub(project.url)" style="padding: 3px 0" type="text" icon="el-icon-back">前往GitHub</el-button>
-                            <el-button @click="more" style="padding: 3px 0" type="text" icon="el-icon-more-outline">更多项目</el-button>
+                            <el-button @click="$share()" style="padding: 3px 0" type="text" :icon="Share">分享</el-button>
+                            <el-button @click="goGithub(project.url)" style="padding: 3px 0" type="text" :icon="Back">前往GitHub</el-button>
+                            <el-button @click="more" style="padding: 3px 0" type="text" :icon="MoreFilled">更多项目</el-button>
                         </div>
                     </el-col>
                 </el-row>
@@ -28,15 +28,15 @@
                 <el-row>
                     <el-col :span="16"  style="padding-top: 5px">
                         <el-tooltip effect="dark" :content="'star '+project.stargazersCount" placement="bottom">
-                            <i class="el-icon-star-off" style="margin: 0px 5px 0px 0px"></i>
+                            <el-icon style="margin: 0px 5px 0px 0px"><Star /></el-icon>
                         </el-tooltip>
                         {{project.stargazersCount}}
                         <el-tooltip effect="dark" :content="'watch '+project.watchersCount" placement="bottom">
-                            <i class="el-icon-view" style="margin: 0px 5px 0px 15px"></i>
+                            <el-icon style="margin: 0px 5px 0px 15px"><View /></el-icon>
                         </el-tooltip>
                         {{project.watchersCount}}
                         <el-tooltip effect="dark" :content="'fork '+project.forksCount" placement="bottom">
-                            <i class="el-icon-bell" style="margin: 0px 5px 0px 15px"></i>
+                            <el-icon style="margin: 0px 5px 0px 15px"><Bell /></el-icon>
                         </el-tooltip>
                         {{project.forksCount}}
                     </el-col>
@@ -61,9 +61,21 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProjectApi from '@/api/project'
+import { Share, Back, MoreFilled, Star, View, Bell } from '@element-plus/icons-vue'
 export default {
+  components: {
+    Share,
+    Back,
+    MoreFilled,
+    Star,
+    View,
+    Bell
+  },
   data () {
     return {
+      Share,
+      Back,
+      MoreFilled,
       project: {
         name: ''
       },

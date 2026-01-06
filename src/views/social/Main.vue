@@ -8,10 +8,10 @@
                             <el-row style="min-height: 200px; ">
                                 <el-col :span="8" v-for="(item,index) in followers.list" :key="'followers'+index" style="padding: 10px">
                                     <el-card shadow="hover" style="font-size: 13px;color: #606266;line-height: 20px">
-                                        <i class="el-icon-star-off"></i>&emsp;
+                                        <el-icon><Star /></el-icon>&emsp;
                                         <a @click="$router.push(`/user/social/details/${item.name}`)" style=" text-decoration:none;cursor:pointer">{{item.name}}</a>
                                         <br>
-                                        <i class="el-icon-message"></i>&emsp;
+                                        <el-icon><Message /></el-icon>&emsp;
                                         <a :href="item.htmlUrl" target="_blank" style=" text-decoration:none;cursor:pointer">TA的主页</a>
                                         <br>
                                         <img :src="item.avatarUrl" style="width: 100%;border-radius:5px;margin-top: 5px">
@@ -37,10 +37,10 @@
                             <el-row style="min-height: 200px; ">
                                 <el-col :span="8" v-for="(item,index) in following.list" :key="'following'+index" style="padding: 10px">
                                     <el-card shadow="hover" style="font-size: 13px;color: #606266;line-height: 20px">
-                                        <i class="el-icon-star-off"></i>&emsp;
+                                        <el-icon><Star /></el-icon>&emsp;
                                         <a @click="$router.push(`/user/social/details/${item.name}`)" style=" text-decoration:none;cursor:pointer">{{item.name}}</a>
                                         <br>
-                                        <i class="el-icon-message"></i>&emsp;
+                                        <el-icon><Message /></el-icon>&emsp;
                                         <a :href="item.htmlUrl" target="_blank" style=" text-decoration:none;cursor:pointer">TA的主页</a>
                                         <br>
                                         <img :src="item.avatarUrl" style="width: 100%;border-radius:5px;margin-top: 5px">
@@ -67,7 +67,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import UserApi from '@/api/user'
+import { Star, Message } from '@element-plus/icons-vue'
 export default {
+  components: {
+    Star,
+    Message
+  },
   data () {
     return {
       activeTab: 'followers',

@@ -54,7 +54,7 @@
                         <div v-if="configure.useBackgroundImage">
                             <el-form-item label="背景图片">
                                 <el-upload action="" :auto-upload="false" drag>
-                                    <i class="el-icon-upload"></i>
+                                    <el-icon><Upload /></el-icon>
                                     <div>将文件拖到此处&nbsp;(暂不支持上传图片)</div>
                                 </el-upload>
                             </el-form-item>
@@ -71,10 +71,10 @@
                                     <el-input v-model="item.url" placeholder="完整URL 例如: https://..."></el-input>
                                 </el-col>
                                 <el-col :span="2">
-                                    <el-button @click="removeWebSites(index)"  style="float: right;" icon="el-icon-delete" type="danger" circle></el-button>
+                                    <el-button @click="removeWebSites(index)"  style="float: right;" :icon="Delete" type="danger" circle></el-button>
                                 </el-col>
                             </el-row>
-                            <el-button @click="addWebSites" style="float: right;" icon="el-icon-plus"  type="success" circle></el-button>
+                            <el-button @click="addWebSites" style="float: right;" :icon="Plus"  type="success" circle></el-button>
                         </el-form-item>
                     </el-tab-pane>
                 </el-tabs>
@@ -83,7 +83,7 @@
                     <el-button @click="reset">还原</el-button>
                     <el-popover placement="top-end" width="200" trigger="click" content="打开极简模式将隐藏部分不主要的菜单">
                         <template v-slot:reference>
-<el-button  icon="el-icon-question" type="text" style="float: right;">说明</el-button>
+<el-button  :icon="QuestionFilled" type="text" style="float: right;">说明</el-button>
 </template>
                     </el-popover>
                 </el-form-item>
@@ -94,9 +94,19 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProjectApi from '@/api/project'
+import { Upload, Delete, Plus, QuestionFilled } from '@element-plus/icons-vue'
 export default {
+  components: {
+    Upload,
+    Delete,
+    Plus,
+    QuestionFilled
+  },
   data () {
     return {
+      Delete,
+      Plus,
+      QuestionFilled,
       activeTab: 'base',
       loading: false,
       configureSha: null,

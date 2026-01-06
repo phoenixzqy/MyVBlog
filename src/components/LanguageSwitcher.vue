@@ -2,7 +2,7 @@
   <div class="language-switcher">
     <el-dropdown @command="handleLanguageChange" trigger="click">
       <span class="el-dropdown-link">
-        <i class="el-icon-s-unfold"></i>
+        <el-icon><Expand /></el-icon>
         {{ currentLanguageName }}
       </span>
       <template #dropdown>
@@ -23,9 +23,13 @@
 import { setLanguage } from '@/utils/language'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import { Expand } from '@element-plus/icons-vue'
 
 export default {
   name: 'LanguageSwitcher',
+  components: {
+    Expand
+  },
   setup () {
     const { t, locale } = useI18n()
 

@@ -9,9 +9,9 @@
                     </el-col>
                     <el-col :span="12">
                         <div style="text-align: right;">
-                            <el-button @click="$share()" style="padding: 3px 0" type="text" icon="el-icon-share">分享</el-button>
-                            <el-button @click="edit" style="padding: 3px 0" type="text" icon="el-icon-edit" v-if="token">编辑</el-button>
-                            <el-button style=" padding: 3px 0" type="text" icon="el-icon-more-outline" @click="more">更多博客</el-button>
+                            <el-button @click="$share()" style="padding: 3px 0" type="text" :icon="Share">分享</el-button>
+                            <el-button @click="edit" style="padding: 3px 0" type="text" :icon="Edit" v-if="token">编辑</el-button>
+                            <el-button style=" padding: 3px 0" type="text" :icon="MoreFilled" @click="more">更多博客</el-button>
                         </div>
                     </el-col>
                 </el-row>
@@ -31,9 +31,18 @@
 <script>
 import { mapGetters } from 'vuex'
 import GistApi from '@/api/gist'
+import { Share, Edit, MoreFilled } from '@element-plus/icons-vue'
 export default {
+  components: {
+    Share,
+    Edit,
+    MoreFilled
+  },
   data () {
     return {
+      Share,
+      Edit,
+      MoreFilled,
       blog: {
         id: '',
         title: '',

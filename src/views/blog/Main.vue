@@ -2,9 +2,9 @@
     <div style="min-height: 600px" v-loading="loading">
         <el-card shadow="never" style="margin-bottom: 20px">
             <el-input placeholder="请输入关键字" v-model="searchKey" clearable style="width: 300px"></el-input>
-            <el-button @click="search" icon="el-icon-search" style="margin-left: 10px" circle plain></el-button>
-            <el-button @click="$share()" style="margin-left: 10px" icon="el-icon-share" type="warning" plain circle></el-button>
-            <el-button type="primary" icon="el-icon-edit" round plain style="float: right;" @click="goAdd">写博文</el-button>
+            <el-button @click="search" :icon="Search" style="margin-left: 10px" circle plain></el-button>
+            <el-button @click="$share()" style="margin-left: 10px" :icon="Share" type="warning" plain circle></el-button>
+            <el-button type="primary" :icon="Edit" round plain style="float: right;" @click="goAdd">写博文</el-button>
         </el-card>
 
         <div v-if="blogs&&blogs.length>0">
@@ -15,15 +15,15 @@
                         <el-col :span="16">
                             <span>
                                 <a style="text-decoration:none;cursor:pointer" @click="goDetails(item.id)">
-                                    <i class="el-icon-edit-outline"></i>&nbsp;&nbsp; {{item.title}}
+                                    <el-icon><EditPen /></el-icon>&nbsp;&nbsp; {{item.title}}
                                 </a>
                             </span>
                         </el-col>
                         <el-col :span="8">
                             <div style="text-align: right;">
-                                <el-button @click="$share('/user/blog/details/'+item.id)" style="padding: 3px 0" type="text" icon="el-icon-share"></el-button>
-                                <el-button @click="editBlog(index)" style="padding: 3px 0" type="text" icon="el-icon-edit" v-if="token"></el-button>
-                                <el-button @click="deleteBlog(index)" style="padding: 3px 0" type="text" icon="el-icon-delete" v-if="token"></el-button>
+                                <el-button @click="$share('/user/blog/details/'+item.id)" style="padding: 3px 0" type="text" :icon="Share"></el-button>
+                                <el-button @click="editBlog(index)" style="padding: 3px 0" type="text" :icon="Edit" v-if="token"></el-button>
+                                <el-button @click="deleteBlog(index)" style="padding: 3px 0" type="text" :icon="Delete" v-if="token"></el-button>
                             </div>
                         </el-col>
                     </el-row>
@@ -55,9 +55,21 @@
 import { mapGetters } from 'vuex'
 import GistApi from '@/api/gist'
 import store from '../../store/index'
+import { Search, Share, Edit, Delete, EditPen } from '@element-plus/icons-vue'
 export default {
+  components: {
+    Search,
+    Share,
+    Edit,
+    Delete,
+    EditPen
+  },
   data () {
     return {
+      Search,
+      Share,
+      Edit,
+      Delete,
       query: {
         page: 1,
         pageSize: store.state.configuration.pageSize || 15,

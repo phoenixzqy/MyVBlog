@@ -4,7 +4,7 @@
             <div style="position:absolute; top:20px; right:20px; z-index:2;">
                 <language-switcher style="margin-right: 10px;"></language-switcher>
                 <el-tooltip effect="dark" :content="fullButton.full ? $t('common.exit') : $t('common.fullscreen')" placement="bottom-end">
-                    <el-button @click="full" :icon="fullButton.full?'el-icon-close':'el-icon-rank'" circle></el-button>
+                    <el-button @click="full" :icon="fullButton.full ? Close : Rank" circle></el-button>
                 </el-tooltip>
             </div>
             <div v-for="(item,index) in randomIcon" :key="'ri'+index" :style="'position:absolute; top:'+item.top+'px; left:'+item.left+'px; z-index:1;'">
@@ -37,7 +37,7 @@
                             <b>{{githubUsername}}</b>
                         </div>
                         <div style="color:#606266;">
-                            <i class="el-icon-location"></i>&nbsp;{{ location ? location : $t('common.notFilled') }}
+                            <el-icon><Location /></el-icon>&nbsp;{{ location ? location : $t('common.notFilled') }}
                             <br>
                         </div>
                     </el-col>
@@ -45,9 +45,9 @@
                         <img v-popover:bigAvatar :src="avatarUrl" style="margin-top: 4px;margin-right: 10px;width:52px; height:52px; border-radius:5px; border: 1px solid #EBEEF5"
                         />
                         <el-popover ref="bigAvatar" placement="top-start" :title="githubUsername" width="200" trigger="hover">
-                            <i class="el-icon-star-on"></i>&emsp;{{name}}
+                            <el-icon><StarFilled /></el-icon>&emsp;{{name}}
                             <br>
-                            <i class="el-icon-location"></i>&emsp;{{location}}
+                            <el-icon><Location /></el-icon>&emsp;{{location}}
                             <br>
                             <img :src="avatarUrl" style="width: 200px;height: 200px;">
                         </el-popover>
@@ -79,16 +79,23 @@ import Sidebar from './components/Sidebar'
 import AppMain from './components/AppMain'
 import Foot from './components/Foot'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { Close, Rank, Location, StarFilled } from '@element-plus/icons-vue'
 export default {
   name: 'DesktopLayout',
   components: {
     Sidebar,
     AppMain,
     Foot,
-    LanguageSwitcher
+    LanguageSwitcher,
+    Close,
+    Rank,
+    Location,
+    StarFilled
   },
   data () {
     return {
+      Close,
+      Rank,
       fullButton: {
         full: false
       },
